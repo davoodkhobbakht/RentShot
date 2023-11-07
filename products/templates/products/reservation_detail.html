@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Reservation Details</h1>
+  <p>Reservation ID: {{ reservation.id }}</p>
+  <p>Total Price: ${{ reservation.total_price }}</p>
+
+  {% if not reservation.is_paid %}
+    <button id="payButton">Pay Now</button>
+  {% else %}
+    <p>Status: Paid</p>
+  {% endif}
+{% endblock %}
+
+
+
+<script>
+  document.getElementById('payButton').addEventListener('click', function() {
+    // You can add confirmation or further logic here if needed
+    
+    // Make an AJAX request to your Django view that initiates the payment
+    // Replace 'reservation_id' with the actual reservation ID
+    const reservationId = "{{ reservation.id }}";
+    fetch(`/initiate-payment/${reservationId}/`)
+      .then(response => response.json())
+      .then(data => {
+        if (data.payment_url) {
+          // Redirect the user to the ZarinPal payment page
+          window.location.href = data.payment_url;
+        } else {
+          // Handle error
+          console.error('Payment initiation failed');
+        }
+      })
+      .catch(error => {
+        console.error('Payment initiation failed:', error);
+      });
+  });
+</script>

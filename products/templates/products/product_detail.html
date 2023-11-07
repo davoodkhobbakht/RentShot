@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+<style>
+.messages {
+  margin: 10px 0;
+}
+
+.messages .success {
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+  color: #155724;
+}
+
+.messages .error {
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+  color: #721c24;
+}
+</style>
+{% if user.is_authenticated %}
+    <p>Welcome, {{ user.username }} | <a href="{% url 'logout' %}">Logout</a></p>
+{% else %}
+    <p><a href="{% url 'login' %}">Login</a> | <a href="{% url 'register' %}">Register</a></p>
+{% endif %}
+<div class="messages">
+  {% if messages %}
+      <ul class="messages">
+          {% for message in messages %}
+              <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+          {% endfor %}
+      </ul>
+  {% endif %}
+</div>
+{% block content %}
+  <h1>{{ product.name }}</h1>
+  <p>{{ product.description }}</p>
+  <p>Price per day: ${{ product.price_per_day }}</p>
+  <h2>Availability:</h2>
+  
+{% endblock %}
+
+
+{% extends "base.html" %}
+{% block content %}
+  <h1>{{ product.name }}</h1>
+  <p>{{ product.description }}</p>
+  <p>Price per day: ${{ product.price_per_day }}</p>
+  <h2>Availability Calendar:</h2>
+  <div id="availability-calendar"></div>
+
+  <a href="{% url 'reserve_product' product.id %}">Reserve this product</a>
+
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      // Fetch availability data via AJAX
+      $.ajax({
+        url: "{% url 'product_availability' product.id %}",
+        type: 'GET',
+        dataType: 'json',
+        success: function(data) {
+          // Use the availability data to display a simple calendar
+          // You can implement your own rendering logic here
+          $('#availability-calendar').html(renderAvailabilityCalendar(data));
+        },
+        error: function() {
+          $('#availability-calendar').html('Error fetching availability data.');
+        }
+      });
+    });
+  
+    function renderAvailabilityCalendar(data) {
+      // Implement your rendering logic here to display the calendar
+      // You can use libraries like FullCalendar for more advanced features
+      // Here's a basic example of rendering dates as 'Available' or 'Not Available'
+      let calendar = '<table>';
+      for (let date in data) {
+        let status = data[date] ? 'Available' : 'Not Available';
+        calendar += `<tr><td>${date}</td><td>${status}</td></tr>`;
+      }
+      calendar += '</table>';
+      return calendar;
+    }
+  </script>
+{% endblock %}

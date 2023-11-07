@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Available Products</h1>
+  <ul>
+    {% for product in products %}
+      <li>
+        <a href="{% url 'product_detail' product.id %}">{{ product.name }}</a>
+        <a href="{% url 'reserve_product' product.id %}">Reserve</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}
