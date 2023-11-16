@@ -24,6 +24,39 @@ def shop(request):
     return render(request, 'shop.html',context)
 
 
+def thankyou(request): 
+    
+    products = Product.objects.all()
+    context = {'thankyou' : products}   
+    return render(request, 'thankyou.html',context)
+
+
+
+def services(request): 
+    
+    products = Product.objects.all()
+    context = {'services' : products}   
+    return render(request, 'services.html',context)
+
+def contact(request): 
+    
+    products = Product.objects.all()
+    context = {'contact' : products}   
+    return render(request, 'contact.html',context)
+
+
+def checkout(request): 
+    
+    products = Product.objects.all()
+    context = {'checkout' : products}   
+    return render(request, 'checkout.html',context)
+
+
+def about(request): 
+    
+    products = Product.objects.all()
+    context = {'about' : products}   
+    return render(request, 'about.html',context)
 
 
 def blog(request):    

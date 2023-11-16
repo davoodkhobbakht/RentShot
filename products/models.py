@@ -37,7 +37,7 @@ class Reservation(models.Model):
                 name="start_date_before_end_date",
                 check=models.Q(start_date__lt=models.F("end_date")),
                 # Optional: Add an error message for the constraint
-                deferrable=models.DEFERRED,
+                 #deferrable=models.DEFERRED,
             )
         ]
 
