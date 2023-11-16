@@ -1,21 +1,4 @@
 
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-      
-{% load i18n %}
-{% load static %}
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
-    <title>Price scrapper</title>
-</head>
-<style>
-  
 body{
     background-color: #000000;
 }
@@ -100,8 +83,8 @@ button:active{
 
 .shape:first-child{
     background: linear-gradient(
-        #ff7700,
-        #f6da23
+        #1845ad,
+        #23a2f6
     );
     left: -100px;
     top: -100px;
@@ -274,35 +257,3 @@ body {
   .my-btn-class-32:hover { background-position: 100% 0px; transition: background 0.4s ease-in-out 0s; }
   .my-btn-class-32:focus { outline: none; }
   .my-btn-class-32:active { box-shadow: rgba(126, 52, 161, 0.75) 0px 4px 5px 0px; transition: all 0.1s ease-in-out 0s; transform: translateY(2px); }
-
-</style>
-<body>
-    <header>
-    </header>
-    <div class="background">
-        <div class="shape"></div>
-        <div class="shape"></div>
-    </div>
-
-
-
-    {% for m in messages %}
-
-    <p>{{m}}</p>
-    
-    {% endfor %}
-     
-
-
-
-<form class="login" method="POST">
-  <h3>Login</h3>
-  {% csrf_token %} 
-  {{ form.as_p }}
-  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
- 
-  <button class="my-btn my-btn-class-31" type="submit">{% trans "Sign In" %}</button>
-</form>
-
-</body>
-</html>
