@@ -30,6 +30,22 @@ class Reservation(models.Model):
     total_price = models.DecimalField(max_digits=10, decimal_places=2)
     is_active = models.BooleanField(default=True)
     authority = models.CharField(max_length=50,blank=True,null=True)
+
+    class Meta:
+        constraints = [
+            models.CheckConstraint(
+                name="start_date_before_end_date",
+                check=models.Q(start_date__lt=models.F("end_date")),
+                # Optional: Add an error message for the constraint
+                deferrable=models.DEFERRED,
+            )
+        ]
+
+
+
+
+
+
     def save(self, *args, **kwargs):
         # Update product availability when a reservation is made
         availability_objects = Availability.objects.filter(

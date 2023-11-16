@@ -6,28 +6,31 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.core.mail import send_mail
-from django.core.mail import send_mail
-from datetime import timedelta
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import login
+from .forms import ReservationForm
+from django import forms
 
 
-def register(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return redirect('profile')
-    else:
-        form = UserCreationForm()
-    return render(request, 'registration/register.html', {'form': form})
 
 
-@login_required
-def profile(request):
-    return render(request, 'registration/profile.html')
+def index(request):
+    products = Product.objects.all()
+    
+    return render(request, 'index.html',)
 
+def shop(request): 
+    
+    products = Product.objects.all()
+    context = {'product_list' : products}   
+    return render(request, 'shop.html',context)
+
+
+
+
+def blog(request):    
+    return render(request, 'blog.html',)
+
+def cart(request):
+    return render(request, 'cart.html')
 @login_required
 def product_list(request):
     products = Product.objects.all()
@@ -48,20 +51,15 @@ def product_detail(request, product_id):
 
 @login_required
 def reserve_product(request, product_id):
-
     product = Product.objects.get(id=product_id)
 
     if request.method == 'POST':
-        start_date = request.POST.get('start_date')
-        end_date = request.POST.get('end_date')
+        form = ReservationForm(request.POST)
+        form.fields["product_id"] = forms.IntegerField(widget=forms.HiddenInput(), initial=product_id)
+        if form.is_valid():
+            start_date = form.cleaned_data.get('start_date')
+            end_date = form.cleaned_data.get('end_date')
 
-        # Check availability for the selected dates
-        availabilities = Availability.objects.filter(
-            product=product,
-            date__range=[start_date, end_date]
-        )
-
-        if availabilities.exists():
             # Calculate total price based on the number of days
             total_price = (end_date - start_date).days * product.price_per_day
 
@@ -76,6 +74,10 @@ def reserve_product(request, product_id):
             reservation.save()
 
             # Update availability
+            availabilities = Availability.objects.filter(
+                product=product,
+                date__range=[start_date, end_date]
+            )
             for availability in availabilities:
                 availability.is_available = False
                 availability.save()
@@ -83,16 +85,14 @@ def reserve_product(request, product_id):
             messages.success(request, 'Reservation successful!')
             return redirect('product_list')
         else:
-            messages.error(request, 'Selected dates are not available for this product.')
-    
-    # Render the reserve_product template with the product details
+            messages.error(request, 'Invalid reservation input. Please check the selected dates.')
+
+    # Render the reserve_product template with the product details and the reservation form
     context = {
-        'product': product
+        'product': product,
+        'form': ReservationForm(),
     }
     return render(request, 'products/reserve_product.html', context)
-
-
-
 
 def product_availability(request, product_id):
     product = Product.objects.get(id=product_id)
@@ -105,7 +105,13 @@ def product_availability(request, product_id):
     return JsonResponse(availability_data)
 
 
-
+@login_required
+def reservation_history(request):
+    user_reservations = Reservation.objects.filter(user=request.user)
+    context = {
+        'reservations': user_reservations,
+    }
+    return render(request, 'products/reservation_history.html', context)
 
 ZARINPAL_API_ENDPOINT = "https://www.zarinpal.com/pg/rest/WebGate/"
 

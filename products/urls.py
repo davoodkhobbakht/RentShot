@@ -23,7 +23,7 @@ urlpatterns = [
     path('product/<int:product_id>/', product_detail, name='product_detail'),
     path('product/<int:product_id>/reserve/', reserve_product, name='reserve_product'),
     path('product/<int:product_id>/availability/', product_availability, name='product_availability'),
-
+    path('reservation_history/', reservation_history, name='reservation_history'),
     # URL pattern for initiating the payment
     path('initiate-payment/<int:reservation_id>/', initiate_payment, name='initiate_payment'),
 

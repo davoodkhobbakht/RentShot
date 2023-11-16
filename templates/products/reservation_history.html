@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+<h1>Reservation History</h1>
+<table>
+    <tr>
+        <th>Product</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Total Price</th>
+        <th>Status</th>
+    </tr>
+    {% for reservation in reservations %}
+    <tr>
+        <td>{{ reservation.product.name }}</td>
+        <td>{{ reservation.start_date }}</td>
+        <td>{{ reservation.end_date }}</td>
+        <td>{{ reservation.total_price }}</td>
+        <td>{{ reservation.get_status }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
