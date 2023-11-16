@@ -2,6 +2,7 @@
 {% block content %}
   <h1>Available Products</h1>
   <ul>
+    <p>'sup nigga</p>
     {% for product in products %}
       <li>
         <a href="{% url 'product_detail' product.id %}">{{ product.name }}</a>
