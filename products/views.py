@@ -10,7 +10,26 @@ from .forms import ReservationForm
 from django import forms
 
 
+def product_detail(request):
+    products = Product.objects.all()
+    context = {'product_detail' : products}  
+    return render(request, 'product_detail.html',context)
 
+
+def staff(request):
+    products = Product.objects.all()
+    context = {'staff' : products}  
+    return render(request, 'staff.html',context)
+
+def product_list(request):
+    products = Product.objects.all()
+    context = {'product_list' : products}  
+    return render(request, 'product_list.html',context)
+
+def profile(request):
+    products = Product.objects.all()
+    context = {'profile' : products}  
+    return render(request, 'profile.html',context)
 
 def index(request):
     products = Product.objects.all()
