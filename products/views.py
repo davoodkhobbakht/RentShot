@@ -9,12 +9,20 @@ from django.core.mail import send_mail
 from .forms import ReservationForm
 from django import forms
 
-
-def product_detail(request):
+def singleproduct(request):
     products = Product.objects.all()
-    context = {'product_detail' : products}  
-    return render(request, 'product_detail.html',context)
 
+    return render(request, 'singleproduct.html',)
+
+def calendar(request):
+    products = Product.objects.all()
+
+    return render(request, 'calendar.html',)
+
+def plans(request):
+    products = Product.objects.all()
+
+    return render(request, 'plans.html',)
 
 def staff(request):
     products = Product.objects.all()

@@ -2,13 +2,15 @@ from django.contrib import admin
 from django.urls import path,include
 from django.contrib.auth import views as auth_views
 from users.views import register,profile
-from products.views import index,blog,cart,shop,about,checkout,contact,services,thankyou,product_detail,profile,staff,product_list
+from products.views import index,blog,cart,shop,about,checkout,contact,services,thankyou,profile,staff,product_list,calendar,plans,singleproduct
 
 urlpatterns = [
-    
+
+    path('singleproduct/', singleproduct),
+    path('plans/', plans),
+    path('calendar/', calendar),
     path('staff/', staff),
     path('profile/', profile),
-    path('product_detail/', product_detail),
     path('thankyou/', thankyou),
     path('services/', services),
     path('contact/', contact),

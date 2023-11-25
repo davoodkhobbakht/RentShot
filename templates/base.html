@@ -4,15 +4,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="author" content="Untree.co">
-  <link rel="shortcut icon" href="/favicon.png">
-
+  <link rel="shortcut icon" href="favicon.png">
   <meta name="description" content="" />
   <meta name="keywords" content="bootstrap, bootstrap4" />
 
 		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="static/css/lib/persian-datepicker.min.css">
 		<link href="/static/css/bootstrap.min.css" rel="stylesheet">
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+		
 		<link href="/static/css/tiny-slider.css" rel="stylesheet">
 		<link href="/static/css/style.css" rel="stylesheet">
 		<title>Rentshot</title>
@@ -24,7 +24,7 @@
 		<nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
 
 			<div class="container">
-				<a class="navbar-brand" href="index.html">RentShot<span>.</span></a>
+				<a class="navbar-brand" href="/">RentShot<span>.</span></a>
 
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
@@ -33,18 +33,18 @@
 				<div class="collapse navbar-collapse" id="navbarsFurni">
 					<ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
 						<li class="nav-item ">
-							<a class="nav-link" href="index.html">صفحه اصلی</a>
+							<a class="nav-link" href="/">صفحه اصلی</a>
 						</li>
-						<li><a class="nav-link" href="shop.html">فروشگاه</a></li>
-						<li><a class="nav-link" href="about.html">درباره ما</a></li>
-						<li><a class="nav-link" href="services.html">خدمات</a></li>
-						<li><a class="nav-link" href="blog.html">وبلاگ</a></li>
-						<li><a class="nav-link" href="contact.html">ارتباط با ما</a></li>
+						<li><a class="nav-link" href="/shop">فروشگاه</a></li>
+						<li><a class="nav-link" href="/about">درباره ما</a></li>
+						<li><a class="nav-link" href="/services">خدمات</a></li>
+						<li><a class="nav-link" href="/blog">وبلاگ</a></li>
+						<li><a class="nav-link" href="/contact">ارتباط با ما</a></li>
 					</ul>
 
 					<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
-						<li><a class="nav-link" href="#"><img src="/static/images/user.svg"></a></li>
-						<li><a class="nav-link" href="cart.html"><img src="/static/images/cart.svg"></a></li>
+						<li><a class="nav-link" href="/profile"><img src="/static/images/user.svg"></a></li>
+						<li><a class="nav-link" href="/cart"><img src="/static/images/cart.svg"></a></li>
 					</ul>
 				</div>
 			</div>
@@ -101,18 +101,18 @@
 						<div class="row links-wrap">
 							<div class="col-6 col-sm-6 col-md-3">
 								<ul class="list-unstyled">
-									<li><a href="#">درباره ما</a></li>
-									<li><a href="#">خدمات</a></li>
-									<li><a href="#">وبلاگ</a></li>
-									<li><a href="#">ارتباط با ما</a></li>
+									<li><a href="/about">درباره ما</a></li>
+									<li><a href="/services">خدمات</a></li>
+									<li><a href="/blog">وبلاگ</a></li>
+									<li><a href="/contact">ارتباط با ما</a></li>
 								</ul>
 							</div>
 
 							<div class="col-6 col-sm-6 col-md-3">
 								<ul class="list-unstyled">
-									<li><a href="#">پشتیبانی</a></li>
+									<li><a href="/contact">پشتیبانی</a></li>
 									<li><a href="#">دانش محور</a></li>
-									<li><a href="#">ارتباط انلاین</a></li>
+									<li><a href="/contact">ارتباط انلاین</a></li>
 								</ul>
 							</div>
 
@@ -130,8 +130,6 @@
 				<div class="border-top copyright">
 					<div class="row pt-4">
 						<div class="col-lg-6">
-							<p class="mb-2 text-center text-lg-start">Copyright &copy;<script>document.write(new Date().getFullYear());</script>. All Rights Reserved. &mdash; Designed with love by <a href="https://untree.co">Untree.co</a> Distributed By <a hreff="https://themewagon.com">ThemeWagon</a>  <!-- License information: https://untree.co/license/ -->
-            </p>
 						</div>
 
 						<div class="col-lg-6 text-center text-lg-end">
@@ -149,7 +147,10 @@
 		<!-- End Footer Section -->	
 
 
-		<script src="/static/js/bootstrap.bundle.min.js"></script>
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	  
 		<script src="/static/js/tiny-slider.js"></script>
 		<script src="/static/js/custom.js"></script>
 	</body>
