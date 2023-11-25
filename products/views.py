@@ -9,8 +9,35 @@ from django.core.mail import send_mail
 from .forms import ReservationForm
 from django import forms
 
+def singleproduct(request):
+    products = Product.objects.all()
 
+    return render(request, 'singleproduct.html',)
 
+def calendar(request):
+    products = Product.objects.all()
+
+    return render(request, 'calendar.html',)
+
+def plans(request):
+    products = Product.objects.all()
+
+    return render(request, 'plans.html',)
+
+def staff(request):
+    products = Product.objects.all()
+    context = {'staff' : products}  
+    return render(request, 'staff.html',context)
+
+def product_list(request):
+    products = Product.objects.all()
+    context = {'product_list' : products}  
+    return render(request, 'product_list.html',context)
+
+def profile(request):
+    products = Product.objects.all()
+    context = {'profile' : products}  
+    return render(request, 'profile.html',context)
 
 def index(request):
     products = Product.objects.all()
@@ -24,6 +51,39 @@ def shop(request):
     return render(request, 'shop.html',context)
 
 
+def thankyou(request): 
+    
+    products = Product.objects.all()
+    context = {'thankyou' : products}   
+    return render(request, 'thankyou.html',context)
+
+
+
+def services(request): 
+    
+    products = Product.objects.all()
+    context = {'services' : products}   
+    return render(request, 'services.html',context)
+
+def contact(request): 
+    
+    products = Product.objects.all()
+    context = {'contact' : products}   
+    return render(request, 'contact.html',context)
+
+
+def checkout(request): 
+    
+    products = Product.objects.all()
+    context = {'checkout' : products}   
+    return render(request, 'checkout.html',context)
+
+
+def about(request): 
+    
+    products = Product.objects.all()
+    context = {'about' : products}   
+    return render(request, 'about.html',context)
 
 
 def blog(request):    

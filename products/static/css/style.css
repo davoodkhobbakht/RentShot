@@ -98,7 +98,10 @@ a {
         margin-right: 20px; }
 
 .hero {
-  background: #B388EB;
+  background-image: url(/static/images/hero.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 550px;
   padding: calc(4rem - 30px) 0 0rem 0; }
   @media (min-width: 768px) {
     .hero {
@@ -115,13 +118,13 @@ a {
   .hero h1 {
     direction: rtl;
     font-weight: 700;
-    color: #ffffff;
+    color: #ffffffe5;
     margin-bottom: 30px; }
     @media (min-width: 1400px) {
       .hero h1 {
         font-size: 54px; } }
   .hero p {
-    color: rgba(255, 255, 255, 0.5);
+    color: rgb(255, 255, 255);
     margin-bottom: 30px;
     direction: rtl;
    }
@@ -163,6 +166,7 @@ a {
         .hero .hero-img-wrap:after {
           top: -40px; } }
 
+          
 .btn {
   font-weight: 600;
   padding: 12px 30px;
