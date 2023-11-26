@@ -6,7 +6,6 @@ from products.views import serve_file,serve_image,index,blog,cart,shop,about,che
 
 urlpatterns = [
 
-    path('singleproduct/', singleproduct),
     path('plans/', plans),
     path('calendar/', calendar),
     path('staff/', staff),
