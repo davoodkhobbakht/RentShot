@@ -95,11 +95,14 @@ $(document).ready(function () {
         },
         "responsive": true,
         "onSelect" : function(){
-            
+           
             alert(`تاریخ انتخاب شده : ${date.year}/${date.month}/${date.date} ~ ${date.hour}:${date.minute}:${date.second}`);
         }
     });
- 
+
     const date = dateObject.getState().view;
-     
+
+    
+
+    
 });
