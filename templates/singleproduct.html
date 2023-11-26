@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 {% block content %}
 <style>
 /* 12columns.css | Created by Katherine Kato | Released under the MIT license */
@@ -693,6 +694,7 @@ nav li {
   border-top: 0.0625rem solid #e3dddd;
   margin: 2rem 0;
   padding: 1rem 0 0 0;
+  direction: rtl;
 }
 
 .add-to-cart {
@@ -842,6 +844,7 @@ footer {
   }
 }
 </style>
+
 <main>
   <div class="container">
     <div class="grid second-nav">
@@ -850,7 +853,7 @@ footer {
           <ol class="breadcrumb-list">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
             <li class="breadcrumb-item"><a href="#">Household Plants</a></li>
-            <li class="breadcrumb-item active">Bonsai</li>
+            <li class="breadcrumb-item active">دوربین بدون آینه سونی Sony Alpha a7 IV Mirrorless Body</li>
           </ol>
         </nav>
       </div>
@@ -869,44 +872,28 @@ footer {
         </div>
       </div>
       <div class="column-xs-12 column-md-5">
-        <h1>Bonsai</h1>
-        <h2>$19.99</h2>
+        <h1>{{ product.name }}</h1>
+        <h2>{{ product.price_per_day }}</h2>
         <div class="description">
-          <p>The purposes of bonsai are primarily contemplation for the viewer, and the pleasant exercise of effort and ingenuity for the grower.</p>
-          <p>By contrast with other plant cultivation practices, bonsai is not intended for production of food or for medicine. Instead, bonsai practice focuses on long-term cultivation and shaping of one or more small trees growing in a container.</p>
+         <p>{{ product.description }}</p>
         </div>
         <button class="add-to-cart" data-toggle="modal" data-target="#exampleModal">Add To Cart</button>
-       <!-- Button trigger modal -->
 
-
+        
+        
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalLabel">تاریخ اجاره</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div class="modal-body">
+               
                 
- 
- 
-    <div class="container">
-      <a id="introduce" href="https://rapidcode.ir" target="_blank">رپید کد • کتابخانه مجازی برنامه نویسان</a>
-
-      <label for="persianDatapicker">تقویم فارسی : </label>
-      <input type="text" name="persianDatapicker" id="persianDatapicker">
-      
-  </div>
-
-
-
-  <script src="static/js/lib/jquery-3.2.1.min.js"></script>
-  <script src="static/js/lib/persian-date.min.js"></script>
-  <script src="static/js/lib/persian-datepicker.min.js"></script>
-  <script src="/products/static/js/app.js"></script>
 
               </div>
               <div class="modal-footer">
@@ -919,10 +906,14 @@ footer {
       </div>
     </div>
     <div style="margin-bottom: 200px;"></div>
+
+
+ 
 <script>
 const activeImage = document.querySelector(".product-image .active");
 const productImages = document.querySelectorAll(".image-list img");
 const navItem = document.querySelector('a.toggle-nav');
+
 
 function changeImage(e) {
   activeImage.src = e.target.src;

@@ -6,7 +6,6 @@ from products.views import index,blog,cart,shop,about,checkout,contact,services,
 
 urlpatterns = [
 
-    path('singleproduct/', singleproduct),
     path('plans/', plans),
     path('calendar/', calendar),
     path('staff/', staff),
