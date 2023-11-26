@@ -1,9 +1,6 @@
-import os
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 import requests
-
-from RentShot import settings
 from .models import Product, Availability, Reservation
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -12,12 +9,11 @@ from django.core.mail import send_mail
 from .forms import ReservationForm
 from django import forms
 
-
-def singleproduct(request,ID):
-    product = Product.objects.get(id = ID)
-    availability_history = Availability.objects.filter(product = product)
-    context = {'product' : product , 'availability_history':availability_history}
-    return render(request, 'singleproduct.html',context=context)
+def singleproduct(request,id):
+    
+    product = Product.objects.get(id = id)
+    context = {'product' : product}
+    return render(request, 'singleproduct.html',context)
 
 def calendar(request):
     products = Product.objects.all()
@@ -47,8 +43,8 @@ def profile(request):
 
 def index(request):
     products = Product.objects.all()
-    #rnd 3 
-    return render(request, 'index.html',{"products":products})
+    
+    return render(request, 'index.html',)
 
 def shop(request): 
     
@@ -256,27 +252,9 @@ def send_rental_reminder_email(user, reservation):
 
 
 def send_reservation_change_notification(user, reservation):
-
     subject = 'Reservation Change Notification'
     message = f'Hello {user.username}, your reservation for {reservation.product.name} has been updated.'
     from_email = 'your_email@example.com'
     recipient_list = [user.email]
 
     send_mail(subject, message, from_email, recipient_list)
-
-
-
-
-def serve_image(request,filename):
-    image_path = os.path.join(settings.MEDIA_ROOT, 'product_images/'+filename)
-    #print(image_path)
-    with open(image_path, 'rb') as f:
-        return HttpResponse(f.read(), 'image/jpeg')
-    
-
-@login_required(login_url="/login/")
-def serve_file(request,filename):
-    file_path = os.path.join(settings.MEDIA_ROOT, 'files/'+filename)
-    #print(image_path)
-    with open(file_path, 'rb') as f:
-        return HttpResponse(f.read(),content_type= 'pplication/octet-stream' )
