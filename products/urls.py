@@ -29,5 +29,8 @@ urlpatterns = [
 
     # URL pattern for verifying the payment (callback)
     path('verify-payment/', verify_payment, name='verify_payment'),
+
+    path('media/<str:dir>/<str:filename>/', verify_payment, name='verify_payment'),
+
 ]
 

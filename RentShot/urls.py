@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path,include
 from django.contrib.auth import views as auth_views
 from users.views import register,profile
-from products.views import index,blog,cart,shop,about,checkout,contact,services,thankyou,profile,staff,product_list,calendar,plans,singleproduct
+from products.views import serve_file,serve_image,index,blog,cart,shop,about,checkout,contact,services,thankyou,profile,staff,product_list,calendar,plans,singleproduct
 
 urlpatterns = [
 
@@ -24,5 +24,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('p/', include('products.urls')),
     path('', include('users.urls')), 
+    path('media/product_images/<str:filename>/', serve_image, name='serve_image'),
 
 ]
