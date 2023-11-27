@@ -43,8 +43,8 @@ def profile(request):
 
 def index(request):
     products = Product.objects.all()
-    
-    return render(request, 'index.html',)
+    context = {'product_list' : products}   
+    return render(request, 'index.html',context)
 
 def shop(request): 
     
@@ -53,19 +53,18 @@ def shop(request):
     return render(request, 'shop.html',context)
 
 
+def services(request): 
+    
+    products = Product.objects.all()
+    context = {'product_list' : products}   
+    return render(request, 'services.html',context)
+
 def thankyou(request): 
     
     products = Product.objects.all()
     context = {'thankyou' : products}   
     return render(request, 'thankyou.html',context)
 
-
-
-def services(request): 
-    
-    products = Product.objects.all()
-    context = {'services' : products}   
-    return render(request, 'services.html',context)
 
 def contact(request): 
     
@@ -92,7 +91,10 @@ def blog(request):
     return render(request, 'blog.html',)
 
 def cart(request):
-    return render(request, 'cart.html')
+    products = Product.objects.all()
+    context = {'product_list' : products}   
+    return render(request, 'cart.html',context)
+
 @login_required
 def product_list(request):
     products = Product.objects.all()
