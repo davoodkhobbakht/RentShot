@@ -59,20 +59,30 @@ def singleproduct(request,id):
 
     return render(request, 'singleproduct.html',context)
 
-def calendar(request):
+def rules(request):
     products = Product.objects.all()
 
-    return render(request, 'calendar.html',)
+    return render(request, 'rules.html',)
+
+def ticket(request):
+    products = Product.objects.all()
+
+    return render(request, 'ticket.html',)
+
+def pro_status(request):
+    products = Product.objects.all()
+
+    return render(request, 'pro_status.html',)
+
+def profile_contact(request):
+    products = Product.objects.all()
+
+    return render(request, 'profile_contact.html',)
 
 def plans(request):
     products = Product.objects.all()
 
     return render(request, 'plans.html',)
-
-def staff(request):
-    products = Product.objects.all()
-    context = {'staff' : products}  
-    return render(request, 'staff.html',context)
 
 def product_list(request):
     products = Product.objects.all()
@@ -85,10 +95,16 @@ def profile(request):
     context = {'profile' : products}  
     return render(request, 'profile.html',context)
 
+@login_required
+def admin_panel(request):
+    products = Product.objects.all()
+    context = {'profile' : products}  
+    return render(request, 'admin_panel.html',context)
+
 def index(request):
     products = Product.objects.all()
-    
-    return render(request, 'index.html',)
+    context = {'product_list' : products}   
+    return render(request, 'index.html',context)
 
 def shop(request): 
     
@@ -97,19 +113,18 @@ def shop(request):
     return render(request, 'shop.html',context)
 
 
+def services(request): 
+    
+    products = Product.objects.all()
+    context = {'product_list' : products}   
+    return render(request, 'services.html',context)
+
 def thankyou(request): 
     
     products = Product.objects.all()
     context = {'thankyou' : products}   
     return render(request, 'thankyou.html',context)
 
-
-
-def services(request): 
-    
-    products = Product.objects.all()
-    context = {'services' : products}   
-    return render(request, 'services.html',context)
 
 def contact(request): 
     
@@ -138,7 +153,7 @@ def blog(request):
 def cart(request):
     reservations = Reservation.objects.filter(user= request.user,order = None , )
     context = {'reservatons' : reservations}
-    return render(request, 'cart.html')
+    return render(request, 'cart.html',context)
 
 
 @login_required
