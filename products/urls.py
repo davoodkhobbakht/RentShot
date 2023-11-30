@@ -22,7 +22,6 @@ urlpatterns = [
        
     path('singleproduct/<int:id>', singleproduct ,name='singleproduct'),
     path('products/', product_list, name='product_list'),
-    path('product/<int:product_id>/', product_detail, name='product_detail'),
     path('product/<int:product_id>/reserve/', reserve_product, name='reserve_product'),
     path('product/<int:product_id>/availability/', product_availability, name='product_availability'),
     path('reservation_history/', reservation_history, name='reservation_history'),
@@ -31,5 +30,8 @@ urlpatterns = [
 
     # URL pattern for verifying the payment (callback)
     path('verify-payment/', verify_payment, name='verify_payment'),
+
+    path('media/<str:dir>/<str:filename>/', verify_payment, name='verify_payment'),
+
 ]
 

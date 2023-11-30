@@ -1,6 +1,9 @@
-from django.http import JsonResponse
+import os
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 import requests
+
+from RentShot import settings
 from .models import Product, Availability, Reservation
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -8,11 +11,52 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core.mail import send_mail
 from .forms import ReservationForm
 from django import forms
+from django.db.models import Q
 
 def singleproduct(request,id):
+    product = Product.objects.get(id=id)
+    availabilities = Availability.objects.filter(product=product)
+    reserve_form = ReservationForm(initial={'product_id': id})
+    context = {
+        'product': product,
+        'availabilities': availabilities,
+        'reserve_form' : reserve_form,
+    }
     
-    product = Product.objects.get(id = id)
-    context = {'product' : product}
+    if request.method == 'POST':
+        form = ReservationForm(request.POST)
+        form.fields["product_id"] = forms.IntegerField(widget=forms.HiddenInput(), initial=id)
+        if form.is_valid():
+            start_date = form.cleaned_data.get('start_date')
+            end_date = form.cleaned_data.get('end_date')
+
+            # Check for overlapping reservations
+            overlapping_reservations = Reservation.objects.filter(
+            product=product,
+            start_date__range=[start_date, end_date] | Q(end_date__range=[start_date, end_date]) | Q(start_date__lte=start_date, end_date__gte=end_date)
+            )
+            if overlapping_reservations.exists():
+                messages.error(request, 'Selected dates are not available for this product.')
+            else:
+                # Calculate total price based on the number of days
+                total_price = (end_date - start_date).days * product.price_per_day
+
+                # Create a reservation
+                reservation = Reservation(
+                    user=request.user,
+                    product=product,
+                    start_date=start_date,
+                    end_date=end_date,
+                    total_price=total_price
+                )
+                reservation.save()
+
+                messages.success(request, 'Reservation successful!')
+                return redirect('product_list')
+        else:
+            messages.error(request, 'Invalid reservation input. Please check the selected dates.')
+
+
     return render(request, 'singleproduct.html',context)
 
 def rules(request):
@@ -107,9 +151,10 @@ def blog(request):
     return render(request, 'blog.html',)
 
 def cart(request):
-    products = Product.objects.all()
-    context = {'product_list' : products}   
+    reservations = Reservation.objects.filter(user= request.user,order = None , )
+    context = {'reservatons' : reservations}
     return render(request, 'cart.html',context)
+
 
 @login_required
 def product_list(request):
@@ -119,15 +164,6 @@ def product_list(request):
     }
     return render(request, 'products/product_list.html', context)
 
-@login_required
-def product_detail(request, product_id):
-    product = Product.objects.get(id=product_id)
-    availabilities = Availability.objects.filter(product=product)
-    context = {
-        'product': product,
-        'availabilities': availabilities
-    }
-    return render(request, 'products/product_detail.html', context)
 
 @login_required
 def reserve_product(request, product_id):
@@ -276,3 +312,18 @@ def send_reservation_change_notification(user, reservation):
     recipient_list = [user.email]
 
     send_mail(subject, message, from_email, recipient_list)
+
+    
+def serve_image(request,filename):
+    image_path = os.path.join(settings.MEDIA_ROOT, 'product_images/'+filename)
+    #print(image_path)
+    with open(image_path, 'rb') as f:
+        return HttpResponse(f.read(), 'image/jpeg')
+    
+
+@login_required(login_url="/login/")
+def serve_file(request,filename):
+    file_path = os.path.join(settings.MEDIA_ROOT, 'files/'+filename)
+    #print(image_path)
+    with open(file_path, 'rb') as f:
+        return HttpResponse(f.read(),content_type= 'pplication/octet-stream' )

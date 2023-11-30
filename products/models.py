@@ -1,6 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+from RentShot import settings
+
+
+
+
 class ProductCategory(models.Model):
     name = models.CharField(max_length=100)
 
@@ -12,7 +17,7 @@ class Product(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
     price_per_day = models.DecimalField(max_digits=10, decimal_places=2)
-    image = models.ImageField(upload_to='product_images/')
+    image = models.ImageField(upload_to= 'media/product_images/')
 
     def __str__(self):
         return self.name
@@ -22,9 +27,20 @@ class Availability(models.Model):
     date = models.DateField()
     is_available = models.BooleanField(default=True)
 
+
+class Order (models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    city = models.CharField(max_length=50,)
+    company_name = models.CharField(max_length=50,blank=True,null=True)
+    address = models.CharField(max_length=50,)
+    postalcode = models.CharField(max_length=50,)
+    status = models.CharField(max_length=50,blank=True,null=True)
+
+
 class Reservation(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    order = models.ForeignKey(Order,on_delete=models.CASCADE , default= None)
     start_date = models.DateField()
     end_date = models.DateField()
     total_price = models.DecimalField(max_digits=10, decimal_places=2)
@@ -42,10 +58,6 @@ class Reservation(models.Model):
         ]
 
 
-
-
-
-
     def save(self, *args, **kwargs):
         # Update product availability when a reservation is made
         availability_objects = Availability.objects.filter(
@@ -56,7 +68,6 @@ class Reservation(models.Model):
             availability.is_available = False
             availability.save()
         super().save(*args, **kwargs)
-
 
 
 
