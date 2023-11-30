@@ -2,10 +2,13 @@ from datetime import date
 from django import forms    
 from .models import Product, Availability, Reservation
 
-class ReservationForm(forms.Form):
-    start_date = forms.DateField()
-    end_date = forms.DateField()
+from jalali_date.fields import JalaliDateField
+from jalali_date.widgets import AdminJalaliDateWidget
 
+class ReservationForm(forms.Form):
+    start_date = JalaliDateField(label='تاریخ شروع', widget=AdminJalaliDateWidget())
+    end_date = JalaliDateField(label='تاریخ پایان', widget=AdminJalaliDateWidget())
+      
     def clean(self):
         cleaned_data = super().clean()
         start_date = cleaned_data.get("start_date")

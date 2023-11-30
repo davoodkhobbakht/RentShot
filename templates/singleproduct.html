@@ -845,6 +845,12 @@ footer {
 }
 </style>
 
+
+<!-- Include Pikaday and Moment.js scripts -->
+
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.8.0/css/pikaday.min.css">
+
+
 <main>
   <div class="container">
     <div class="grid second-nav">
@@ -877,38 +883,47 @@ footer {
         <div class="description">
          <p>{{ product.description }}</p>
         </div>
+        <div id="availability-calendar"></div>
+
         <button class="add-to-cart" data-toggle="modal" data-target="#exampleModal">Add To Cart</button>
 
         
         
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">تاریخ اجاره</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-               
-                
-
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="add-to-cart" data-dismiss="modal">Close</button>
-                <button type="button" class="add-to-cart">Save changes</button>
-              </div>
-            </div>
+       <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">تاریخ اجاره</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <!-- Add date inputs for start and end dates -->
+          <div class="modal-body">
+            <form method="post" action="{% url 'singleproduct' product.id %}"  style="text-align: right;">
+              {% csrf_token %}
+              {{ reserve_form.as_p }}
+              <button type="submit" class="add-to-cart">رزرو</button>
+            </form>
+            
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="add-to-cart" data-dismiss="modal">Close</button>
+            
           </div>
         </div>
       </div>
-    </div>
+      </div>
+      </div>
     <div style="margin-bottom: 200px;"></div>
+    </div>
+
+{% endblock %}
 
 
- 
+{% block javascript %}
+		
 <script>
 const activeImage = document.querySelector(".product-image .active");
 const productImages = document.querySelectorAll(".image-list img");
@@ -926,4 +941,42 @@ function toggleNavigation(){
 productImages.forEach(image => image.addEventListener("click", changeImage));
 navItem.addEventListener('click', toggleNavigation);
 </script>
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<script>
+    
+    $(document).ready(function () {
+    // Fetch availability data via AJAX
+    $.ajax({
+      url: "{% url 'product_availability' product.id %}",
+      type: 'GET',
+      dataType: 'json',
+      success: function (data) {
+        // Use the availability data to display a simple calendar
+        // You can implement your own rendering logic here
+        $('#availability-calendar').html(renderAvailabilityCalendar(data));
+      },
+      error: function () {
+        $('#availability-calendar').html('Error fetching availability data.');
+      }
+    });
+  });
+
+  function renderAvailabilityCalendar(data) {
+    let calendar = '<table class="availability-calendar">';
+    calendar += '<thead><tr><th>Date</th><th>Status</th></tr></thead>';
+    calendar += '<tbody>';
+
+    // Iterate through the availability data
+    for (let date in data) {
+      let status = data[date] ? 'Available' : 'Not Available';
+      calendar += `<tr><td>${date}</td><td>${status}</td></tr>`;
+    }
+
+    calendar += '</tbody></table>';
+    return calendar;
+  }
+</script>
+
 {% endblock %}
