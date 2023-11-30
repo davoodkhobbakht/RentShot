@@ -15,20 +15,30 @@ def singleproduct(request,id):
     context = {'product' : product}
     return render(request, 'singleproduct.html',context)
 
-def calendar(request):
+def rules(request):
     products = Product.objects.all()
 
-    return render(request, 'calendar.html',)
+    return render(request, 'rules.html',)
+
+def ticket(request):
+    products = Product.objects.all()
+
+    return render(request, 'ticket.html',)
+
+def pro_status(request):
+    products = Product.objects.all()
+
+    return render(request, 'pro_status.html',)
+
+def profile_contact(request):
+    products = Product.objects.all()
+
+    return render(request, 'profile_contact.html',)
 
 def plans(request):
     products = Product.objects.all()
 
     return render(request, 'plans.html',)
-
-def staff(request):
-    products = Product.objects.all()
-    context = {'staff' : products}  
-    return render(request, 'staff.html',context)
 
 def product_list(request):
     products = Product.objects.all()
@@ -40,6 +50,12 @@ def profile(request):
     products = Product.objects.all()
     context = {'profile' : products}  
     return render(request, 'profile.html',context)
+
+@login_required
+def admin_panel(request):
+    products = Product.objects.all()
+    context = {'profile' : products}  
+    return render(request, 'admin_panel.html',context)
 
 def index(request):
     products = Product.objects.all()
