@@ -98,7 +98,7 @@ def profile(request):
 @login_required
 def admin_panel(request):
     products = Product.objects.all()
-    context = {'profile' : products}  
+    context = {'product_list' : products}   
     return render(request, 'admin_panel.html',context)
 
 def index(request):
@@ -135,8 +135,9 @@ def contact(request):
 
 def checkout(request): 
     
-    products = Product.objects.all()
-    context = {'checkout' : products}   
+    reservations = Reservation.objects.filter(user= request.user , )
+    print(reservations)
+    context = {'reservations' : reservations}
     return render(request, 'checkout.html',context)
 
 
@@ -151,8 +152,9 @@ def blog(request):
     return render(request, 'blog.html',)
 
 def cart(request):
-    reservations = Reservation.objects.filter(user= request.user,order = None , )
-    context = {'reservatons' : reservations}
+    reservations = Reservation.objects.filter(user= request.user , )
+    print(reservations)
+    context = {'reservations' : reservations}
     return render(request, 'cart.html',context)
 
 

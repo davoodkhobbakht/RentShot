@@ -102,18 +102,19 @@
 					<!-- Start Column 2 -->
 					
 					{% for p in product_list %}
-					<div class="col-12 col-md-4 col-lg-3 mb-5">
-						<a class="product-item" href="{% url 'singleproduct'  id=p.id %}">
-								<img src="{{p.image.url}}" class="img-fluid product-thumbnail">
-							<h3 class="product-title">{{p.name}}</h3>
-							<strong class="product-price">{{p.price_per_day}}</strong>
-
-							<span class="icon-cross">
-							<img src="/static/images/cross.svg" class="img-fluid">
-							</span>
-						</a>
-					</div> 
-					{% endfor %}
+    {% if forloop.counter <= 3 %}
+	<div class="col-12 col-md-4 col-lg-3 mb-5">
+		<a class="product-item" href="{% url 'singleproduct' id=p.id %}">
+			<img src="{{ p.image.url }}" class="img-fluid product-thumbnail">
+			<h3 class="product-title">{{ p.name }}</h3>
+			<strong class="product-price">{{ p.price_per_day }}</strong>
+			<span class="icon-cross">
+				<img src="/static/images/cross.svg" class="img-fluid">
+			</span>
+		</a>
+	</div> 
+{% endif %}
+{% endfor %}
 					<!-- End Column 2 -->
 
 

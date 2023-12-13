@@ -35,35 +35,28 @@
                           <th class="product-thumbnail">عکس محصول</th>
                           <th class="product-name">نام محصول</th>
                           <th class="product-price">قیمت</th>
-                          <th class="product-quantity">تعداد</th>
+                          <th class="product-quantity">شروع سفارش</th>
+                          <th class="product-quantity">پایان سفارش</th>
                           <th class="product-total">مجموع قیمت</th>
                           <th class="product-remove">حذف محصول</th>
                         </tr>
                       </thead>
                       <tbody>
+                        {% for r in reservations %}
                         <tr>
                           <td class="product-thumbnail">
-                            <img src="/static/images/product-1.png" alt="Image" class="img-fluid">
+                            <img src="{{r.product.image.url}}" alt="Image" class="img-fluid">
                           </td>
                           <td class="product-name">
-                            <h2 class="h5 text-black">Product 1</h2>
+                            <h2 class="h5 text-black">{{ r.product.name }}</h2>
                           </td>
-                          <td>$49.00</td>
-                          <td>
-                            <div class="input-group mb-3 d-flex align-items-center quantity-container" style="max-width: 120px;">
-                              <div class="input-group-prepend">
-                                <button class="btn btn-outline-black decrease" type="button">&minus;</button>
-                              </div>
-                              <input type="text" class="form-control text-center quantity-amount" value="1" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
-                              <div class="input-group-append">
-                                <button class="btn btn-outline-black increase" type="button">&plus;</button>
-                              </div>
-                            </div>
-        
-                          </td>
-                          <td>$49.00</td>
+                          <td>{{ r.product.price_per_day }}</td>
+                          <td>{{ r.start_date }}</td>
+                          <td>{{ r.end_date }}</td>
+                          <td>{{ r.total_price }}</td>
                           <td><a href="#" class="btn btn-black btn-sm">X</a></td>
                         </tr>
+                        {% endfor %}
                             </div>
                       </tbody>
                     </table>
@@ -101,7 +94,7 @@
                           <span class="text-black">جمع قیمت</span>
                         </div>
                         <div class="col-md-6 text-right">
-                          <strong class="text-black">$230.00</strong>
+                          <strong class="text-black">{{ r.total_price }}</strong>
                         </div>
                       </div>
                       <div class="row mb-5">
@@ -109,7 +102,7 @@
                           <span class="text-black">قابل پرداخت</span>
                         </div>
                         <div class="col-md-6 text-right">
-                          <strong class="text-black">$230.00</strong>
+                          <strong class="text-black">{{ r.total_price }}</strong>
                         </div>
                       </div>
         
