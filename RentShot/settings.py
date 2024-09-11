@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'products',
     'users',
     'jalali_date',
-    
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -139,3 +139,5 @@ LOGOUT_URL = '/logout/'
 LOGIN_REDIRECT_URL = '/profile/'
 
 
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

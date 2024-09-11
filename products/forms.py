@@ -1,7 +1,8 @@
 from datetime import date
 from django import forms    
+from django.forms import ModelForm
 from .models import Product, Availability, Reservation
-
+from crispy_forms.helper import FormHelper
 from jalali_date.fields import JalaliDateField
 from jalali_date.widgets import AdminJalaliDateWidget
 
@@ -32,3 +33,13 @@ class ReservationForm(forms.Form):
             )
             if not availabilities.exists():
                 raise forms.ValidationError("Selected dates are not available for this product.")
+
+class ProductForm(forms.ModelForm):
+    class Meta:
+        model = Product
+        fields = ['category', 'name', 'description', 'price_per_day', 'image']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_method = 'post'

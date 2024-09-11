@@ -10,7 +10,7 @@ urlpatterns = [
     path('ticket/', ticket),
     path('pro_status/', pro_status),
     path('profile_contact/', profile_contact),
-    path('admin_panel/', admin_panel),
+    path('admin_panel/', admin_panel, name='admin_panel'),
     path('plans/', plans),
     path('profile/', profile),
     path('thankyou/', thankyou),

@@ -1,15 +1,17 @@
+from datetime import datetime, timezone
 import os
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 import requests
 
 from RentShot import settings
+
 from .models import Product, Availability, Reservation
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.core.mail import send_mail
-from .forms import ReservationForm
+from .forms import ReservationForm , ProductForm
 from django import forms
 from django.db.models import Q
 
@@ -98,7 +100,35 @@ def profile(request):
 @login_required
 def admin_panel(request):
     products = Product.objects.all()
+
     context = {'product_list' : products}   
+
+    product_form = ProductForm()
+    
+    if request.method == 'POST':
+        product_form = ProductForm(request.POST, request.FILES)
+        if product_form.is_valid():
+            # Save the form data to create a new Product instance
+            new_product = product_form.save(commit=False)
+            
+            # Set additional fields (e.g., created_at, owner)
+            new_product.created_at = datetime.now()
+            new_product.owner = request.user
+
+            # Save the Product instance
+            new_product.save()
+
+            # Redirect to a success page or do something else
+            return redirect('admin_panel')
+    else:
+        product_form = ProductForm()
+
+
+
+    context = {'profile' : products,
+               'product_form' : product_form
+               }
+    
     return render(request, 'admin_panel.html',context)
 
 def index(request):
