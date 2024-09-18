@@ -132,7 +132,7 @@ LOGIN_REDIRECT_URL = '/profile/'
 
 
 STATIC_ROOT = os.path.join(str(BASE_DIR), 'static')
-STATIC_URL = '/static/'    
+STATIC_URL = '/rent/static/'    
 
 
 
