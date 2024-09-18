@@ -12,9 +12,10 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 import os
 from pathlib import Path
+import mimetypes
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.normpath(os.path.dirname(__file__))
 
 
 # Quick-start development settings - unsuitable for production
@@ -132,8 +133,9 @@ LOGIN_REDIRECT_URL = '/profile/'
 
 
 STATIC_ROOT = os.path.join(str(BASE_DIR), 'static')
-STATIC_URL = '/rent/static/'    
+STATIC_URL = '/static/'    
 
+mimetypes.add_type("text/css", ".css", True)
 
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
