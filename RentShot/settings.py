@@ -10,7 +10,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
-import mimetypes
 import os
 from pathlib import Path
 
@@ -135,7 +134,6 @@ LOGIN_REDIRECT_URL = '/profile/'
 STATIC_ROOT = os.path.join(str(BASE_DIR), 'static')
 STATIC_URL = '/static/'   
 
-mimetypes.add_type("text/css", ".css", True)
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = []
 
