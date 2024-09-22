@@ -3,6 +3,7 @@ from django.urls import path,include
 from django.contrib.auth import views as auth_views
 from users.views import register,profile
 from products.views import *
+from django.conf.urls.static import static
 
 urlpatterns = [
 
@@ -28,4 +29,4 @@ urlpatterns = [
     path('', include('users.urls')), 
     path('media/product_images/<str:filename>/', serve_image, name='serve_image'),
 
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
