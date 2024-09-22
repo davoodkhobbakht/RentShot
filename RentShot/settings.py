@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-gm%!@4bkj9@u-fc*d0l%o80%oh*f)t%5x&c-kn!u!^mfm7(cdi
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['doorbinshot.com','127.0.0.1']
+ALLOWED_HOSTS = ['doorbinshot.com','127.0.0.1' ,'doorbin.shop']
 
 
 # Application definition
