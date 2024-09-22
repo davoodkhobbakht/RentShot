@@ -29,4 +29,4 @@ urlpatterns = [
     path('', include('users.urls')), 
     path('media/product_images/<str:filename>/', serve_image, name='serve_image'),
 
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+]
