@@ -137,9 +137,6 @@ STATIC_URL = '/rent/static/'
 
 mimetypes.add_type("text/css", ".css", True)
 # Extra places for collectstatic to find static files.
-STATICFILES_DIRS = [
-    os.path.join(str(BASE_DIR), 'static'),
-]
-
+STATICFILES_DIRS = []
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
